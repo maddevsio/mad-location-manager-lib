@@ -26,18 +26,6 @@ endif()
 file(GLOB_RECURSE sources_lib src/*.cpp inc/*h)
 file(GLOB_RECURSE sources_test tests/*.cpp)
 
-# find_program(CMAKE_CXX_CPPCHECK NAMES cppcheck)
-# if (CMAKE_CXX_CPPCHECK)
-#     list(
-#         APPEND CMAKE_CXX_CPPCHECK 
-#             "--enable=warning"
-#             "--inconclusive"
-#             "--force" 
-#             "--inline-suppr"
-#             "--suppressions-list=${CMAKE_SOURCE_DIR}/CppCheckSuppressions.txt"
-#     )
-# endif()
-
 ###############################################################################
 ## target definitions #########################################################
 ###############################################################################
@@ -65,16 +53,16 @@ if (NOT GEOGRAPHICLIB)
 endif()
 set(GEOGRAPHICLIB ${GEOGRAPHICLIB}/geographiclib)
 
+message("EIGENLIB: ${EIGENLIB}")
+message("GEOGRAPHICLIB: ${GEOGRAPHICLIB}")
 
 add_library(mlm_filter SHARED ${sources_lib})
 
 # This allows to include files relative to the root of the src directory with a <> pair
 target_include_directories(mlm_filter PUBLIC inc)
 target_include_directories(mlm_filter PRIVATE
-  external/geographiclib/include
-  ${CMAKE_CURRENT_BINARY_DIR}/external/geographiclib/include
-  external/eigen
-  ${CMAKE_CURRENT_BINARY_DIR}/external/eigen
+  ${GEOGRAPHICLIB}/include
+  ${EIGENLIB}
 )
 
 set(CMAKE_CXX_FLAGS_BACK ${CMAKE_CXX_FLAGS})
