@@ -152,6 +152,17 @@ struct gps_coordinate {
   gps_speed speed;
 
   gps_coordinate() : location(), speed() {}
+  gps_coordinate(double latitude,
+                 double longitude,
+                 double altitude,
+                 double loc_error,
+                 double speed_value,
+                 double speed_azimuth,
+                 double speed_error)
+      : location(latitude, longitude, altitude, loc_error),
+        speed(speed_value, speed_azimuth, speed_error)
+  {
+  }
 };
 //////////////////////////////////////////////////////////////
 
