@@ -82,7 +82,7 @@ target_compile_options(${PROJECT_NAME} PUBLIC ${warning_level})
 
 # This copies all resource files in the build directory.
 # We need this, because we want to work with paths relative to the executable.
-file(COPY ${PROJECT_SOURCE_DIR}/ui DESTINATION ${PROJECT_BINARY_DIR})
+# file(COPY ${PROJECT_SOURCE_DIR}/ui DESTINATION ${PROJECT_BINARY_DIR})
 
 ###############################################################################
 ## testing ####################################################################
