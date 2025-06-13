@@ -65,6 +65,18 @@ cmake --build build -j12
 
 Then run `build/filter/filter_unit_tests`
 
+## How to use filter
+
+See `filter/mlm.h` and `filter/sensor_data.h` for details. But overall, the process looks like this:
+1. Create the MLM object `mlm`. 
+2. When the accelerometer vector in ENU is ready, feed it to `mlm` (`bool process_acc_data(const enu_accelerometer &acc, double time_sec);`)
+3. When the GPS coordinate is ready, feed it to `mlm` (`void process_gps_data(const gps_coordinate &gps, double time_sec);`)
+4. After receiving each GPS coordinate, get the filtered coordinate from `mlm` (`gps_coordinate predicted_coordinate() const;`)
+
+An example of all steps described above can be found [here](https://github.com/maddevsio/mad-location-manager-lib/blob/0eccabb8eeadc7d4c2233d1b24285d8a879c68e7/src/main_window.cpp#L906C6-L906C40)
+
+An example of how to build **Android** is in [wiki](https://github.com/maddevsio/mad-location-manager-lib/wiki/Android)
+
 ## How to use the visualizer
 
 - Build ideal route (Ctrl + mouse left click on a map)
@@ -75,17 +87,6 @@ Then run `build/filter/filter_unit_tests`
   ![image](https://github.com/user-attachments/assets/3a952ac0-5c1f-4780-a2b6-1390a0f8a7b7)  
 - After this, there will be three layers available: ideal data, generated (noisy) data, and filtered route.
   ![image](https://github.com/user-attachments/assets/fe738066-dc17-43f8-aa93-12cceb4cb919)
-
-## How to use filter
-
-See `filter/mlm.h` and `filter/sensor_data.h` for details. But overall, the process looks like this:
-1. Create the MLM object `mlm`. 
-2. When the accelerometer vector in ENU is ready, feed it to `mlm` (`bool process_acc_data(const enu_accelerometer &acc, double time_sec);`)
-3. When the GPS coordinate is ready, feed it to `mlm` (`void process_gps_data(const gps_coordinate &gps, double time_sec);`)
-4. After receiving each GPS coordinate, get the filtered coordinate from `mlm` (`gps_coordinate predicted_coordinate() const;`)
-
-An example of all steps described above can be found [here](https://github.com/maddevsio/mad-location-manager-lib/blob/0eccabb8eeadc7d4c2233d1b24285d8a879c68e7/src/main_window.cpp#L906C6-L906C40)
-An example of how to build Android is in [wiki](https://github.com/maddevsio/mad-location-manager-lib/wiki/Android)
 
 ## The roadmap
 
