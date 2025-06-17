@@ -1,0 +1,57 @@
+name: Generate Documentation
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  # Allow manual triggering
+  workflow_dispatch:
+
+jobs:
+  generate-docs:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        # Fetch full history for better git operations
+        fetch-depth: 0
+
+    
+    - name: Install dependencies
+      run: |
+        echo "INSTALL DEPENDENCIES"
+        sudo apt-get update
+        sudo apt-get install -y doxygen cmake
+    
+    - name: Create build directory
+      run: mkdir -p filter/build
+    
+    - name: Configure CMake
+      run: |
+        echo "CONFIGURE CMake"
+        cd filter/build
+        cmake ..
+    
+    - name: Generate documentation
+      run: |
+        echo "GENERATE DOCUMENTATION"
+        cd filter/build
+        make docs
+
+    - name: Add .nojekyll file
+      run: touch filter/build/docs/html/.nojekyll
+    
+    - name: Deploy to GitHub Pages
+      # Only deploy on push to main/master branch (not on PRs)
+      if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./filter/build/docs/html
+        # Optional: Custom commit message
+        commit_message: 'Deploy documentation'
+        # Optional: Enable force push (be careful with this)
+        force_orphan: false
