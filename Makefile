@@ -94,6 +94,7 @@ mrproper:
 	@rm -rf $(BUILD_DIR)
 	@rm -rf $(BIN_DIR)
 
+#
 .PHONY: valgrind_memcheck
 valgrind_memcheck: debug
 	@valgrind --tool=memcheck --num-callers=50 --leak-check=full --suppressions=/usr/share/gtk-4.0/valgrind/gtk.supp \
