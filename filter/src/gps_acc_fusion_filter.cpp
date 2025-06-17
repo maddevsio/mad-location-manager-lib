@@ -1,20 +1,20 @@
 #include "gps_acc_fusion_filter.h"
 
-GPSAccFusionFilter::GPSAccFusionFilter()
+gps_acc_fusion_filter::gps_acc_fusion_filter()
 {
   H.setIdentity();
   Pk_k.setIdentity();
 }
 //////////////////////////////////////////////////////////////
 
-const FusionFilterState GPSAccFusionFilter::current_state() const
+const kf_state gps_acc_fusion_filter::current_state() const
 {
-  FusionFilterState res(Xk_k(0, 0), Xk_k(1, 0), Xk_k(2, 0), Xk_k(3, 0));
+  kf_state res(Xk_k(0, 0), Xk_k(1, 0), Xk_k(2, 0), Xk_k(3, 0));
   return res;
 }
 //////////////////////////////////////////////////////////////
 
-void GPSAccFusionFilter::reset(double x,
+void gps_acc_fusion_filter::reset(double x,
                                double y,
                                double ts,
                                double x_vel,
@@ -31,7 +31,7 @@ void GPSAccFusionFilter::reset(double x,
 };
 //////////////////////////////////////////////////////////////
 
-void GPSAccFusionFilter::predict(double x_acc, double y_acc, double ts_sec)
+void gps_acc_fusion_filter::predict(double x_acc, double y_acc, double ts_sec)
 {
   double dt_sec = ts_sec - m_last_predict_sec;
   rebuild_F(dt_sec);
@@ -50,7 +50,7 @@ void GPSAccFusionFilter::predict(double x_acc, double y_acc, double ts_sec)
 }
 //////////////////////////////////////////////////////////////
 
-void GPSAccFusionFilter::update(const FusionFilterState& state,
+void gps_acc_fusion_filter::update(const kf_state& state,
                                 double pos_sigma_2,
                                 double vel_sigma_2)
 {
@@ -65,7 +65,7 @@ void GPSAccFusionFilter::update(const FusionFilterState& state,
 }
 //////////////////////////////////////////////////////////////
 
-void GPSAccFusionFilter::rebuild_F(double dt_sec)
+void gps_acc_fusion_filter::rebuild_F(double dt_sec)
 {
   double dt = dt_sec;
   // clang-format off
@@ -77,13 +77,13 @@ void GPSAccFusionFilter::rebuild_F(double dt_sec)
 }
 //////////////////////////////////////////////////////////////
 
-void GPSAccFusionFilter::rebuild_U(double xAcc, double yAcc)
+void gps_acc_fusion_filter::rebuild_U(double xAcc, double yAcc)
 {
   Uk << xAcc, yAcc;
 }
 //////////////////////////////////////////////////////////////
 
-void GPSAccFusionFilter::rebuild_B(double dt_sec)
+void gps_acc_fusion_filter::rebuild_B(double dt_sec)
 {
   double dt = dt_sec;
   double dt_2 = 0.5 * dt * dt;
@@ -96,7 +96,7 @@ void GPSAccFusionFilter::rebuild_B(double dt_sec)
 }
 //////////////////////////////////////////////////////////////
 
-void GPSAccFusionFilter::rebuild_Q(double dt_sec)
+void gps_acc_fusion_filter::rebuild_Q(double dt_sec)
 {
   // The correct continuous-white-noise model (Brown & Hwang, Bar-Shalom, etc.)
   double dt = dt_sec;
@@ -115,7 +115,7 @@ void GPSAccFusionFilter::rebuild_Q(double dt_sec)
 }
 //////////////////////////////////////////////////////////////
 
-void GPSAccFusionFilter::rebuild_R(double pos_sigma_2, double vel_sigma_2)
+void gps_acc_fusion_filter::rebuild_R(double pos_sigma_2, double vel_sigma_2)
 {
   R.setZero();
 

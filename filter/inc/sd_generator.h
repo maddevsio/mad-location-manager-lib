@@ -4,13 +4,10 @@
 #include "sensor_data.h"
 
 /// movement_interval_t - interval of movement
-/// @azimuth - in degrees
-/// @acceleration - in m/s^2
-/// @duration - seconds
 struct movement_interval {
-  double cartezian_angle;  // degrees
-  double acceleration;     // m/s^2
-  double duration;         // seconds
+  double cartezian_angle;  /// angle in degrees
+  double acceleration;     /// acceleration m/s^2
+  double duration;         /// duration in seconds
 
   movement_interval() = delete;
   movement_interval(double cartezian_angle,
