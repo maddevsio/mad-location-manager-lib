@@ -33,7 +33,7 @@ jobs:
       run: |
         echo "CONFIGURE CMake"
         cd filter/build
-        cmake ..
+        cmake -DCMAKE_TARGET=Documentation ..
     
     - name: Generate documentation
       run: |
