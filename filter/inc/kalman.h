@@ -3,35 +3,44 @@
 
 #include <Eigen/Eigen>
 #include <cstddef>
-#include <iostream>
 
+/**
+ * @brief Template-based Kalman filter implementation
+ *
+ * @tparam state_d Dimension of state vector (number of state variables)
+ * @tparam measure_d Dimension of measurement vector (number of measurements)
+ * @tparam control_d Dimension of control vector (number of control inputs)
+ *
+ * Generic Kalman filter for linear state estimation using Eigen matrices.
+ * Implements standard predict-correct cycle with configurable dimensions.
+ */
 template <size_t state_d, size_t measure_d, size_t control_d>
-class KalmanFilter
+class kalman_filter
 {
 #define mtx_t Eigen::Matrix
  protected:
   /*these matrices should be provided by user*/
-  mtx_t<double, state_d, state_d> F;      // state transition model
-  mtx_t<double, measure_d, state_d> H;    // observation model
-  mtx_t<double, state_d, control_d> B;    // control matrix
-  mtx_t<double, state_d, state_d> Q;      // process noise covariance
-  mtx_t<double, measure_d, measure_d> R;  // observation noise covariance
-  mtx_t<double, control_d, 1> Uk;         // control vector
-  mtx_t<double, measure_d, 1> Zk;         // actual measured values vector
+  mtx_t<double, state_d, state_d> F;      /// state transition model
+  mtx_t<double, measure_d, state_d> H;    /// observation model
+  mtx_t<double, state_d, control_d> B;    /// control matrix
+  mtx_t<double, state_d, state_d> Q;      /// process noise covariance
+  mtx_t<double, measure_d, measure_d> R;  /// observation noise covariance
+  mtx_t<double, control_d, 1> Uk;         /// control vector
+  mtx_t<double, measure_d, 1> Zk;         /// actual measured values vector
 
   /*these matrices will be calculated*/
-  mtx_t<double, state_d, 1> Xk_km1;        // predicted state estimate
-  mtx_t<double, state_d, state_d> Pk_km1;  // predicted estimate covariance
-  mtx_t<double, measure_d, 1> Yk;          // measurement innovation
-  mtx_t<double, measure_d, measure_d> Sk;  // innovation covariance
-  mtx_t<double, state_d, measure_d> K;     // Kalman gain
-  mtx_t<double, state_d, 1> Xk_k;          // updated (current) state
-  mtx_t<double, measure_d, 1> Yk_k;        // post fit residual
-  mtx_t<double, state_d, state_d> Pk_k;    // updated estimate covariance
+  mtx_t<double, state_d, 1> Xk_km1;        /// predicted state estimate
+  mtx_t<double, state_d, state_d> Pk_km1;  /// predicted estimate covariance
+  mtx_t<double, measure_d, 1> Yk;          /// measurement innovation
+  mtx_t<double, measure_d, measure_d> Sk;  /// innovation covariance
+  mtx_t<double, state_d, measure_d> K;     /// Kalman gain
+  mtx_t<double, state_d, 1> Xk_k;          /// updated (current) state
+  mtx_t<double, measure_d, 1> Yk_k;        /// post fit residual
+  mtx_t<double, state_d, state_d> Pk_k;    /// updated estimate covariance
 
   /*auxiliary matrices*/
   mtx_t<double, state_d, state_d> I;  // (I - Kk*Hk)
-  KalmanFilter() : I(mtx_t<double, state_d, state_d>::Identity()) {}
+  kalman_filter() : I(mtx_t<double, state_d, state_d>::Identity()) {}
   //////////////////////////////////////////////////////////////
 
   // predict

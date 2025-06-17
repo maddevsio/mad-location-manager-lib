@@ -6,17 +6,23 @@
 #include <cstddef>
 #include <cstring>
 
+/**
+ * @brief Digital low-pass filter for arrays of data
+ * @tparam T Data type (must support arithmetic operations)
+ * @tparam N Array size
+ */
 template <class T, size_t N>
-class LowPassFilter
+class low_pass_filter
 {
  private:
-  double fc;  // cutoff [Hz]
-  T y[N];
-  bool has_init;
-  double last_ts;
+  double fc;       ///< Cutoff frequency [Hz]  T y[N];
+  T y[N];          ///< Filtered output buffer
+  bool has_init;   ///< Initialization flag
+  double last_ts;  ///< Previous timestamp
 
  public:
-  LowPassFilter(double cutoff_hz) : fc(cutoff_hz), has_init(false), last_ts(0.0)
+  low_pass_filter(double cutoff_hz)
+      : fc(cutoff_hz), has_init(false), last_ts(0.0)
   {
     for (size_t i = 0; i < N; ++i) {
       y[i] = T();
