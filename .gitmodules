@@ -1,6 +1,0 @@
-[submodule "filter/external/geographiclib"]
-	path = filter/external/geographiclib
-	url = https://github.com/geographiclib/geographiclib.git
-[submodule "filter/external/eigen"]
-	path = filter/external/eigen
-	url = https://gitlab.com/libeigen/eigen.git
