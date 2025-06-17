@@ -1,0 +1,1 @@
+/usr/bin/c++  -fPIC -Wall -Wextra -Wfloat-conversion -Werror -g -Wl,--dependency-file=CMakeFiles/reformat.dir/link.d CMakeFiles/reformat.dir/reformat.cpp.o -o reformat

@@ -1,0 +1,1 @@
+/usr/bin/c++  -fPIC -Wall -Wextra -Wfloat-conversion -Werror -g -Wl,--dependency-file=CMakeFiles/polygontest.dir/link.d CMakeFiles/polygontest.dir/polygontest.cpp.o -o polygontest  ../src/libGeographicLib.a

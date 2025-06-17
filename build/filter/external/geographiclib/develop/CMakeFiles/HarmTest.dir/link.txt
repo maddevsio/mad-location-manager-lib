@@ -1,0 +1,1 @@
+/usr/bin/c++  -fPIC -Wall -Wextra -Wfloat-conversion -Werror -g -Wl,--dependency-file=CMakeFiles/HarmTest.dir/link.d CMakeFiles/HarmTest.dir/HarmTest.cpp.o -o HarmTest  ../src/libGeographicLib.a

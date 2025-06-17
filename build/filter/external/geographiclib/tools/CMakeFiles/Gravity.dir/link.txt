@@ -1,0 +1,1 @@
+/usr/bin/c++  -fPIC -Wall -Wextra -Wfloat-conversion -Werror -g -Wl,--dependency-file=CMakeFiles/Gravity.dir/link.d CMakeFiles/Gravity.dir/Gravity.cpp.o -o Gravity  -Wl,-rpath,:::::::::::::: ../src/libGeographicLib.a

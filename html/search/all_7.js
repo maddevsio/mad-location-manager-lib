@@ -1,0 +1,4 @@
+var searchData=
+[
+  ['key_20differences_20from_20the_20a_20href_20https_3a_20github_20com_20maddevsio_20mad_20location_20manager_20old_20version_20a_0',['Key differences from the &lt;a href=&quot;https://github.com/maddevsio/mad-location-manager&quot; &gt;old version&lt;/a&gt;',['../md_README.html#autotoc_md1',1,'']]]
+];

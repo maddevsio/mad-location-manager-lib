@@ -1,0 +1,1 @@
+/usr/bin/c++  -fPIC -Wall -Wextra -Wfloat-conversion -Werror -g -Wl,--dependency-file=CMakeFiles/EllipticTest.dir/link.d CMakeFiles/EllipticTest.dir/EllipticTest.cpp.o -o EllipticTest  ../src/libGeographicLib.a

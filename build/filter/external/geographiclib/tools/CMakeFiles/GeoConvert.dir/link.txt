@@ -1,0 +1,1 @@
+/usr/bin/c++  -fPIC -Wall -Wextra -Wfloat-conversion -Werror -g -Wl,--dependency-file=CMakeFiles/GeoConvert.dir/link.d CMakeFiles/GeoConvert.dir/GeoConvert.cpp.o -o GeoConvert  -Wl,-rpath,:::::::::::::: ../src/libGeographicLib.a

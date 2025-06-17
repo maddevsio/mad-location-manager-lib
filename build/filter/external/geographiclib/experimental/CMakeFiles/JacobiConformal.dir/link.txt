@@ -1,0 +1,1 @@
+/usr/bin/c++  -fPIC -Wall -Wextra -Wfloat-conversion -Werror -g -Wl,--dependency-file=CMakeFiles/JacobiConformal.dir/link.d CMakeFiles/JacobiConformal.dir/JacobiConformal.cpp.o -o JacobiConformal  ../src/libGeographicLib.a

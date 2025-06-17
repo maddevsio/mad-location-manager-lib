@@ -1,0 +1,1 @@
+/usr/bin/c++  -fPIC -Wall -Wextra -Wfloat-conversion -Werror -g -Wl,--dependency-file=CMakeFiles/AreaEst.dir/link.d CMakeFiles/AreaEst.dir/AreaEst.cpp.o -o AreaEst  ../src/libGeographicLib.a
