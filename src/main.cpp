@@ -7,24 +7,14 @@ static void activate(GtkApplication *app, gpointer user_data);
 //////////////////////////////////////////////////////////////
 
 #ifdef _UNIT_TESTS_
-int main_tests(int argc, char *argv[])
-{
+int main_tests(int argc, char *argv[]) {
   testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
 }
 #endif
 //////////////////////////////////////////////////////////////
 
-int f(int a, int b)
-{
-  // return -1 if a < b
-  // return 1 if a > b
-  // return 0 if a == b
-  return (a > b) - (a < b);
-}
-
-int main(int argc, char **argv)
-{
+int main(int argc, char **argv) {
 #ifdef _UNIT_TESTS_
   return main_tests(argc, argv);
 #endif
@@ -41,8 +31,7 @@ int main(int argc, char **argv)
 }
 //////////////////////////////////////////////////////////////
 
-void activate(GtkApplication *app, gpointer user_data)
-{
+void activate(GtkApplication *app, gpointer user_data) {
   (void)(app);
   (void)(user_data);
   generator_main_window *gmw =
