@@ -12,7 +12,7 @@ if(DOXYGEN_FOUND)
     set(DOXYGEN_PROJECT_BRIEF "Library for fusing GPS and ENU accelerometer data")
     set(DOXYGEN_OUTPUT_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/docs")
     set(DOXYGEN_INPUT "${CMAKE_CURRENT_SOURCE_DIR}")  # for some reason does not work
-    set(DOXYGEN_FILE_PATTERNS "*.h;*.hpp;*.c;*.cpp")
+    set(DOXYGEN_FILE_PATTERNS "*.h;*.hpp;*.c;*.cpp;*.md")
     set(DOXYGEN_EXCLUDE_PATTERNS "*/external/*;*/tests/*")
     set(DOXYGEN_RECURSIVE YES)
     set(DOXYGEN_EXTRACT_ALL YES)
