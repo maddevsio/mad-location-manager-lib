@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.16)
 
 project(mlm_filter)            # this sets the project name
 
+option(BUILD_IOS_FRAMEWORK "Build as iOS framework" OFF)
+
 ###############################################################################
 ## file globbing ##############################################################
 ###############################################################################
@@ -58,10 +60,28 @@ message("GEOGRAPHICLIB: ${GEOGRAPHICLIB}")
 
 add_library(mlm_filter SHARED ${sources_lib})
 
+if(BUILD_IOS_FRAMEWORK)
+    set(CMAKE_XCODE_ATTRIBUTE_CODE_SIGNING_ALLOWED "NO")
+    set_target_properties(mlm_filter PROPERTIES
+        FRAMEWORK TRUE
+        FRAMEWORK_VERSION A
+        MACOSX_FRAMEWORK_IDENTIFIER com.maddevs.mlm_filter
+        PUBLIC_HEADER "inc/mlm.h;inc/sensor_data.h;inc/gps_acc_fusion_filter.h;\
+GeographicLib/Accumulator.hpp;GeographicLib/AlbersEqualArea.hpp;GeographicLib/AuxAngle.hpp;GeographicLib/AuxLatitude.hpp;GeographicLib/AzimuthalEquidistant.hpp;GeographicLib/CassiniSoldner.hpp;GeographicLib/CircularEngine.hpp;GeographicLib/Config.h;GeographicLib/Constants.hpp;GeographicLib/DAuxLatitude.hpp;GeographicLib/DMS.hpp;GeographicLib/DST.hpp;GeographicLib/Ellipsoid.hpp;GeographicLib/EllipticFunction.hpp;GeographicLib/GARS.hpp;GeographicLib/Geocentric.hpp;GeographicLib/GeoCoords.hpp;GeographicLib/Geodesic.hpp;GeographicLib/GeodesicExact.hpp;GeographicLib/GeodesicLine.hpp;GeographicLib/GeodesicLineExact.hpp;GeographicLib/Geohash.hpp;GeographicLib/Geoid.hpp;GeographicLib/Georef.hpp;GeographicLib/Gnomonic.hpp;GeographicLib/GravityCircle.hpp;GeographicLib/GravityModel.hpp;GeographicLib/Intersect.hpp;GeographicLib/LambertConformalConic.hpp;GeographicLib/LocalCartesian.hpp;GeographicLib/MGRS.hpp;GeographicLib/MagneticCircle.hpp;GeographicLib/MagneticModel.hpp;GeographicLib/Math.hpp;GeographicLib/NearestNeighbor.hpp;GeographicLib/NormalGravity.hpp;GeographicLib/OSGB.hpp;GeographicLib/PolarStereographic.hpp;GeographicLib/PolygonArea.hpp;GeographicLib/Rhumb.hpp;GeographicLib/SphericalEngine.hpp;GeographicLib/SphericalHarmonic.hpp;GeographicLib/SphericalHarmonic1.hpp;GeographicLib/SphericalHarmonic2.hpp;GeographicLib/TransverseMercator.hpp;GeographicLib/TransverseMercatorExact.hpp;GeographicLib/Utility.hpp;GeographicLib/UTMUPS.hpp"
+        XCODE_ATTRIBUTE_CODE_SIGNING_REQUIRED "NO"
+        XCODE_ATTRIBUTE_CODE_SIGN_IDENTITY ""
+    )
+    # Копируем всю папку GeographicLib в Headers фреймворка
+    install(DIRECTORY ${GEOGRAPHICLIB}/include/GeographicLib
+            DESTINATION $<TARGET_FILE_DIR:mlm_filter>/Headers)
+endif()
+
 # This allows to include files relative to the root of the src directory with a <> pair
-target_include_directories(mlm_filter PUBLIC inc)
-target_include_directories(mlm_filter PRIVATE
+target_include_directories(mlm_filter PUBLIC
+  inc
   ${GEOGRAPHICLIB}/include
+)
+target_include_directories(mlm_filter PRIVATE
   ${EIGENLIB}
 )
 
