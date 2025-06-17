@@ -1,6 +1,0 @@
-var searchData=
-[
-  ['acceleration_0',['acceleration',['../structenu__accelerometer.html#ac59f2b30d65ac2ac6705de64c05690dd',1,'enu_accelerometer::acceleration(void) const'],['../structenu__accelerometer.html#ac59f2b30d65ac2ac6705de64c05690dd',1,'enu_accelerometer::acceleration(void) const']]],
-  ['accelerometer_1',['accelerometer',['../structaccelerometer.html#abedd0b2a95c795301fc95c3cf9b5760d',1,'accelerometer::accelerometer()'],['../structaccelerometer.html#ae83082ae4452919e81f903251ceb3072',1,'accelerometer::accelerometer(double x, double y, double z)'],['../structaccelerometer.html#abedd0b2a95c795301fc95c3cf9b5760d',1,'accelerometer::accelerometer()'],['../structaccelerometer.html#ae83082ae4452919e81f903251ceb3072',1,'accelerometer::accelerometer(double x, double y, double z)']]],
-  ['azimuth_5fto_5fcartezian_5frad_2',['azimuth_to_cartezian_rad',['../build_2inc_2inc_2commons_8h.html#a089637a5887306666b135b9ab4e56f59',1,'azimuth_to_cartezian_rad(double rad):&#160;commons.cpp'],['../inc_2commons_8h.html#a089637a5887306666b135b9ab4e56f59',1,'azimuth_to_cartezian_rad(double rad):&#160;commons.cpp'],['../commons_8cpp.html#a089637a5887306666b135b9ab4e56f59',1,'azimuth_to_cartezian_rad(double rad):&#160;commons.cpp']]]
-];

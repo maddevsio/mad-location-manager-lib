@@ -1,1 +1,0 @@
-/usr/bin/c++  -fPIC -Wall -Wextra -Wfloat-conversion -Werror -g -Wl,--dependency-file=CMakeFiles/ConicProj.dir/link.d CMakeFiles/ConicProj.dir/ConicProj.cpp.o -o ConicProj  -Wl,-rpath,:::::::::::::: ../src/libGeographicLib.a

@@ -1,1 +1,0 @@
-/usr/bin/c++  -fPIC -Wall -Wextra -Wfloat-conversion -Werror -g -Wl,--dependency-file=CMakeFiles/GeodExact.dir/link.d CMakeFiles/GeodExact.dir/GeodExact.cpp.o CMakeFiles/GeodExact.dir/Geodesic30.cpp.o CMakeFiles/GeodExact.dir/GeodesicLine30.cpp.o -o GeodExact  ../src/libGeographicLib.a

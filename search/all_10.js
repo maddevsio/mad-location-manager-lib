@@ -38,5 +38,6 @@ var searchData=
   ['sensor_5fdata_5frecord_5ftype_35',['sensor_data_record_type',['../sensor__data_8h.html#a1df4d940196ba5cdc8817f4347fcd2a8',1,'sensor_data.h']]],
   ['sk_36',['Sk',['../classkalman__filter.html#a4d960330adbe16bbade69340b3c2c4ae',1,'kalman_filter']]],
   ['speed_37',['speed',['../structgps__coordinate.html#a0d4152f19566d48243b4085948618f86',1,'gps_coordinate']]],
-  ['supported_5fhdrs_38',['supported_hdrs',['../sensor__data_8cpp.html#a6bdcc0f5188a26184dc100afc7e0bf4b',1,'sensor_data.cpp']]]
+  ['structure_38',['Project structure',['../index.html#autotoc_md3',1,'']]],
+  ['supported_5fhdrs_39',['supported_hdrs',['../sensor__data_8cpp.html#a6bdcc0f5188a26184dc100afc7e0bf4b',1,'sensor_data.cpp']]]
 ];

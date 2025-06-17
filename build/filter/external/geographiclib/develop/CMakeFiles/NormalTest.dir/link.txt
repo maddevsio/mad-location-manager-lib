@@ -1,1 +1,0 @@
-/usr/bin/c++  -fPIC -Wall -Wextra -Wfloat-conversion -Werror -g -Wl,--dependency-file=CMakeFiles/NormalTest.dir/link.d CMakeFiles/NormalTest.dir/NormalTest.cpp.o -o NormalTest  ../src/libGeographicLib.a

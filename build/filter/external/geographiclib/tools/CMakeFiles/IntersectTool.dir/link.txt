@@ -1,1 +1,0 @@
-/usr/bin/c++  -fPIC -Wall -Wextra -Wfloat-conversion -Werror -g -Wl,--dependency-file=CMakeFiles/IntersectTool.dir/link.d CMakeFiles/IntersectTool.dir/IntersectTool.cpp.o -o IntersectTool  -Wl,-rpath,:::::::::::::: ../src/libGeographicLib.a

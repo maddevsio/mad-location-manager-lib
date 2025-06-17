@@ -1,1 +1,0 @@
-/usr/bin/c++  -fPIC -Wall -Wextra -Wfloat-conversion -Werror -g -Wl,--dependency-file=CMakeFiles/NaNTester.dir/link.d CMakeFiles/NaNTester.dir/NaNTester.cpp.o -o NaNTester  ../src/libGeographicLib.a

@@ -1,1 +1,0 @@
-/usr/bin/c++  -fPIC -Wall -Wextra -Wfloat-conversion -Werror -g -Wl,--dependency-file=CMakeFiles/TransverseMercatorProj.dir/link.d CMakeFiles/TransverseMercatorProj.dir/TransverseMercatorProj.cpp.o -o TransverseMercatorProj  -Wl,-rpath,:::::::::::::: ../src/libGeographicLib.a

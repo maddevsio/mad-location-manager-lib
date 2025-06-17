@@ -1,3 +1,0 @@
-/home/lezh1k/SRC/work/MDPet/mad-location-manager-lib/filter/build/CMakeFiles/docs.dir
-/home/lezh1k/SRC/work/MDPet/mad-location-manager-lib/filter/build/CMakeFiles/edit_cache.dir
-/home/lezh1k/SRC/work/MDPet/mad-location-manager-lib/filter/build/CMakeFiles/rebuild_cache.dir

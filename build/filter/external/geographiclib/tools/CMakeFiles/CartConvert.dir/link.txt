@@ -1,1 +1,0 @@
-/usr/bin/c++  -fPIC -Wall -Wextra -Wfloat-conversion -Werror -g -Wl,--dependency-file=CMakeFiles/CartConvert.dir/link.d CMakeFiles/CartConvert.dir/CartConvert.cpp.o -o CartConvert  -Wl,-rpath,:::::::::::::: ../src/libGeographicLib.a

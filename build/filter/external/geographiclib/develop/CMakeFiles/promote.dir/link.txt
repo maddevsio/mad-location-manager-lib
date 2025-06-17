@@ -1,1 +1,0 @@
-/usr/bin/c++  -fPIC -Wall -Wextra -Wfloat-conversion -Werror -g -Wl,--dependency-file=CMakeFiles/promote.dir/link.d CMakeFiles/promote.dir/promote.cpp.o -o promote  ../src/libGeographicLib.a

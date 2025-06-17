@@ -1,1 +1,0 @@
-/usr/bin/c++  -fPIC -Wall -Wextra -Wfloat-conversion -Werror -g -Wl,--dependency-file=CMakeFiles/GeoidEval.dir/link.d CMakeFiles/GeoidEval.dir/GeoidEval.cpp.o -o GeoidEval  -Wl,-rpath,:::::::::::::: ../src/libGeographicLib.a

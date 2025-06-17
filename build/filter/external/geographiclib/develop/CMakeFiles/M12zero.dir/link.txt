@@ -1,1 +1,0 @@
-/usr/bin/c++  -fPIC -Wall -Wextra -Wfloat-conversion -Werror -g -Wl,--dependency-file=CMakeFiles/M12zero.dir/link.d CMakeFiles/M12zero.dir/M12zero.cpp.o -o M12zero  ../src/libGeographicLib.a

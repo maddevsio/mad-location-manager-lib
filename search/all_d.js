@@ -8,5 +8,6 @@ var searchData=
   ['predict_5',['predict',['../classgps__acc__fusion__filter.html#acf0d4980bded2f1a0338a44f1cef863e',1,'gps_acc_fusion_filter']]],
   ['predicted_5fcoordinate_6',['predicted_coordinate',['../classMLM.html#a48926efae2cef166b5e81837aa58139b',1,'MLM']]],
   ['process_5facc_5fdata_7',['process_acc_data',['../classMLM.html#ae43b2d48649cba0e78d819a80a65a9ef',1,'MLM']]],
-  ['process_5fgps_5fdata_8',['process_gps_data',['../classMLM.html#a55c0922d21e80934cf2ac6cbfb9c141c',1,'MLM']]]
+  ['process_5fgps_5fdata_8',['process_gps_data',['../classMLM.html#a55c0922d21e80934cf2ac6cbfb9c141c',1,'MLM']]],
+  ['project_20structure_9',['Project structure',['../index.html#autotoc_md3',1,'']]]
 ];

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>mad-location-manager-lib: Main Page</title>
+<title>mad-location-manager-lib: mad-location-manager filter</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -69,10 +69,83 @@ $(function() {
 </div>
 </div>
 
-<div class="header">
-  <div class="headertitle"><div class="title">mad-location-manager-lib Documentation</div></div>
+<div><div class="header">
+  <div class="headertitle"><div class="title">mad-location-manager filter </div></div>
 </div><!--header-->
 <div class="contents">
+<div class="textblock"><p><a class="anchor" id="md_README"></a> This repository contains 2 parts:</p><ul>
+<li>C++ library for GPS and Accelerometer data "fusion" with Kalman filter.</li>
+</ul>
+<p><a href="https://maddevs.io/blog/reduce-gps-data-error-on-android-with-kalman-filter-and-accelerometer/">Blog (English version)</a></p>
+<p><a href="https://medium.com/maddevs-io/ru-reduce-gps-data-error-on-android-with-kalman-filter-and-accelerometer-b81f1026e06c">Blog (Russian version)</a></p>
+<p><a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT" style="pointer-events: none;" class="inline"/></a> <a href="https://maddevs.io"><img src="https://maddevs.io/badge-light.svg" alt="Developed by Mad Devs" style="pointer-events: none;" class="inline"/></a></p>
+<h1><a class="anchor" id="autotoc_md1"></a>
+Key differences from the &lt;a href="https://github.com/maddevsio/mad-location-manager" &gt;old version&lt;/a&gt;</h1>
+<ul>
+<li>Rewrote filter using C++ from scratch</li>
+<li>All matrix operations are implemented with <a href="https://eigen.tuxfamily.org/">libeigen</a></li>
+<li>All geographic operations, distance calculations, etc., are made with <a href="https://geographiclib.sourceforge.io/">GeographicLib</a></li>
+<li>Changed process noise matrix (Q). See the math behind it <a href="https://github.com/rlabbe/Kalman-and-Bayesian-Filters-in-Python/blob/master/07-Kalman-Filter-Math.ipynb">here</a></li>
+<li>Fixed bug related to <code>estimate covariance matrix</code> (P)</li>
+<li>Changed the method of how ENU (east-north-up) acceleration is calculated. Migrated from the rotation matrix to quaternions</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md2"></a>
+Requirements</h1>
+<ul>
+<li>cmake</li>
+<li>git</li>
+<li>pkg-config</li>
+<li>gkt4</li>
+<li>libshumate</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md3"></a>
+Project structure</h1>
+<ul>
+<li>Filter contains Kalman filter implementation itself</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md4"></a>
+How to build filter</h1>
+<p>Thes is CMake-based project. To build it, use the following commands:</p>
+<div class="fragment"><div class="line">cmake -B build</div>
+<div class="line">cmake --build build -j12</div>
+</div><!-- fragment --><p>Then run <code>build/mlm_visualizer</code></p>
+<h1><a class="anchor" id="autotoc_md5"></a>
+How to run tests</h1>
+<div class="fragment"><div class="line">cmake -B build</div>
+<div class="line">cmake --build build -j12</div>
+</div><!-- fragment --><p>Then run <code>build/filter_unit_tests</code></p>
+<h1><a class="anchor" id="autotoc_md6"></a>
+How to generate documentation</h1>
+<div class="fragment"><div class="line">cmake -B build</div>
+<div class="line">make -C build docs</div>
+</div><!-- fragment --><p>Then find documentation in <code>build/docs</code> folder</p>
+<h1><a class="anchor" id="autotoc_md7"></a>
+How to use filter</h1>
+<p>See <code>filter/mlm.h</code> and <code>filter/sensor_data.h</code> for details. But overall, the process looks like this:</p><ol type="1">
+<li>Create the <a class="el" href="classMLM.html" title="Motion Location Model - GPS/Accelerometer sensor fusion estimator.">MLM</a> object <code>mlm</code>.</li>
+<li>When the accelerometer vector in ENU is ready, feed it to <code>mlm</code> (<code>bool process_acc_data(const <a class="el" href="structenu__accelerometer.html" title="enu_accelerometer - acceleration in ENU coordinates (east, north, up)">enu_accelerometer</a> &amp;acc, double time_sec);</code>)</li>
+<li>When the GPS coordinate is ready, feed it to <code>mlm</code> (<code>void process_gps_data(const <a class="el" href="structgps__coordinate.html" title="gps_coordinate - consists of 2 independent parts : location and speed">gps_coordinate</a> &amp;gps, double time_sec);</code>)</li>
+<li>After receiving each GPS coordinate, get the filtered coordinate from <code>mlm</code> (<code><a class="el" href="structgps__coordinate.html" title="gps_coordinate - consists of 2 independent parts : location and speed">gps_coordinate</a> predicted_coordinate() const;</code>)</li>
+</ol>
+<p>An example of all steps described above can be found <a href="https://github.com/maddevsio/mad-location-manager-lib/blob/0eccabb8eeadc7d4c2233d1b24285d8a879c68e7/src/main_window.cpp#L906C6-L906C40">here</a> An example of how to build Android is in <a href="https://github.com/maddevsio/mad-location-manager-lib/wiki/Android">wiki</a></p>
+<h1><a class="anchor" id="autotoc_md8"></a>
+The roadmap</h1>
+<ul>
+<li>[x] Implement Kalman filter</li>
+<li>[x] Fix bugs</li>
+<li>[ ] Clear and clean documentation, probably doxygen</li>
+<li>[ ] Refactor and optimize</li>
+<li>[ ] Add accelerometer bias into model (probably it's not necessary, because filter shows worse results than without bias in model, but we need to try to tune bias level) <br  />
+</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md9"></a>
+License</h1>
+<p>MIT License</p>
+<p>Copyright (c) 2025 Mad Devs</p>
+<p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
+<p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
+<p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. </p>
+</div></div><!-- PageDoc -->
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

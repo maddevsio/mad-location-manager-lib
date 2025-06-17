@@ -1,1 +1,0 @@
-/usr/bin/c++  -fPIC -Wall -Wextra -Wfloat-conversion -Werror -g -Wl,--dependency-file=CMakeFiles/RhumbSolve.dir/link.d CMakeFiles/RhumbSolve.dir/RhumbSolve.cpp.o -o RhumbSolve  -Wl,-rpath,:::::::::::::: ../src/libGeographicLib.a
