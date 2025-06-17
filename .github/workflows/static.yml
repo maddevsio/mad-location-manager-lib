@@ -2,9 +2,9 @@ name: Generate Documentation
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, gh-pages ]
   pull_request:
-    branches: [ main ]
+    branches: [ main, gh-pages ]
   # Allow manual triggering
   workflow_dispatch:
 
@@ -33,7 +33,7 @@ jobs:
       run: |
         echo "CONFIGURE CMake"
         cd filter/build
-        cmake ..
+        cmake -DCMAKE_TARGET=Documentation ..
     
     - name: Generate documentation
       run: |
