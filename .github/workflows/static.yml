@@ -2,9 +2,9 @@ name: Generate Documentation
 
 on:
   push:
-    branches: [ main, gh-pages ]
+    branches: [ main ]
   pull_request:
-    branches: [ main, gh-pages ]
+    branches: [ main ]
   # Allow manual triggering
   workflow_dispatch:
 
