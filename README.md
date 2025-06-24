@@ -67,6 +67,8 @@ Then run `build/filter/filter_unit_tests`
 
 ## How to use filter
 
+More info can be found [HERE](https://maddevsio.github.io/mad-location-manager-lib/)
+
 See `filter/mlm.h` and `filter/sensor_data.h` for details. But overall, the process looks like this:
 1. Create the MLM object `mlm`. 
 2. When the accelerometer vector in ENU is ready, feed it to `mlm` (`bool process_acc_data(const enu_accelerometer &acc, double time_sec);`)
