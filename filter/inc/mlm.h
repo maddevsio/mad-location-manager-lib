@@ -32,6 +32,7 @@ class MLM
   double m_acc_sigma_2;   ///< Accelerometer noise variance [m²/s⁴]
   double m_loc_sigma_2;   ///< Location measurement noise variance [m²]
   double m_vel_sigma_2;   ///< Velocity process noise variance [m²/s²]
+  double m_last_valid_azimuth_deg;  ///< Last valid azimuth used for low-speed output
 
  public:
   /**

@@ -1,9 +1,27 @@
 #include "gps_acc_fusion_filter.h"
 
+#include <algorithm>
+#include <cmath>
+
+namespace {
+constexpr double kMinSigma2 = 1e-8;
+constexpr double kMinDtSec = 1e-3;
+constexpr double kMaxDtSec = 1.0;
+
+inline bool finite4(double a, double b, double c, double d)
+{
+  return std::isfinite(a) && std::isfinite(b) && std::isfinite(c) &&
+         std::isfinite(d);
+}
+}  // namespace
+
 gps_acc_fusion_filter::gps_acc_fusion_filter()
 {
   H.setIdentity();
   Pk_k.setIdentity();
+  m_last_predict_sec = 0.0;
+  m_acc_sigma_2 = kMinSigma2;
+  m_pos_sigma_2 = kMinSigma2;
 }
 //////////////////////////////////////////////////////////////
 
@@ -15,25 +33,37 @@ const kf_state gps_acc_fusion_filter::current_state() const
 //////////////////////////////////////////////////////////////
 
 void gps_acc_fusion_filter::reset(double x,
-                               double y,
-                               double ts,
-                               double x_vel,
-                               double y_vel,
-                               double acc_sigma_2,
-                               double pos_sigma_2)
+                                  double y,
+                                  double ts,
+                                  double x_vel,
+                                  double y_vel,
+                                  double acc_sigma_2,
+                                  double pos_sigma_2)
 {
+  if (!finite4(x, y, x_vel, y_vel) || !std::isfinite(ts)) {
+    return;
+  }
   m_last_predict_sec = ts;
   Xk_k << x, y, x_vel, y_vel;
   Pk_k.setZero();
   Pk_k.diagonal() << 1, 1, 10, 10;
-  m_acc_sigma_2 = acc_sigma_2;
-  m_pos_sigma_2 = pos_sigma_2;
+  m_acc_sigma_2 = std::max(acc_sigma_2, kMinSigma2);
+  m_pos_sigma_2 = std::max(pos_sigma_2, kMinSigma2);
 };
 //////////////////////////////////////////////////////////////
 
 void gps_acc_fusion_filter::predict(double x_acc, double y_acc, double ts_sec)
 {
+  if (!std::isfinite(x_acc) || !std::isfinite(y_acc) || !std::isfinite(ts_sec)) {
+    return;
+  }
+
+  if (ts_sec <= m_last_predict_sec) {
+    return;
+  }
+
   double dt_sec = ts_sec - m_last_predict_sec;
+  dt_sec = std::clamp(dt_sec, kMinDtSec, kMaxDtSec);
   rebuild_F(dt_sec);
   rebuild_B(dt_sec);
   rebuild_U(x_acc, y_acc);
@@ -51,10 +81,16 @@ void gps_acc_fusion_filter::predict(double x_acc, double y_acc, double ts_sec)
 //////////////////////////////////////////////////////////////
 
 void gps_acc_fusion_filter::update(const kf_state& state,
-                                double pos_sigma_2,
-                                double vel_sigma_2)
+                                   double pos_sigma_2,
+                                   double vel_sigma_2)
 {
-  rebuild_R(pos_sigma_2, vel_sigma_2);
+  if (!finite4(state.x, state.y, state.x_vel, state.y_vel)) {
+    return;
+  }
+  if (!std::isfinite(pos_sigma_2) || !std::isfinite(vel_sigma_2)) {
+    return;
+  }
+  rebuild_R(std::max(pos_sigma_2, kMinSigma2), std::max(vel_sigma_2, kMinSigma2));
 
   // if we have gps speed as input
   Zk << state.x, state.y, state.x_vel, state.y_vel;
@@ -99,7 +135,7 @@ void gps_acc_fusion_filter::rebuild_B(double dt_sec)
 void gps_acc_fusion_filter::rebuild_Q(double dt_sec)
 {
   // The correct continuous-white-noise model (Brown & Hwang, Bar-Shalom, etc.)
-  double dt = dt_sec;
+  double dt = std::clamp(dt_sec, kMinDtSec, kMaxDtSec);
   const double dt2 = dt * dt;
   const double dt3 = dt2 * dt;
   const double dt4 = dt3 * dt;
@@ -111,7 +147,7 @@ void gps_acc_fusion_filter::rebuild_Q(double dt_sec)
         0,         dt3/2.0,  0,         dt2;
   // clang-format on
 
-  Q *= m_acc_sigma_2;  // σa² already
+  Q *= std::max(m_acc_sigma_2, kMinSigma2);  // σa² already
 }
 //////////////////////////////////////////////////////////////
 
